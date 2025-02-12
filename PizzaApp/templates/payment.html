@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1 class="text-center">Payment Details</h1>
+
+<div class="container my-5">
+    <form method="POST" enctype="multipart/form-data" class="form-container">
+        {% csrf_token %}
+
+        <!-- All fields inside a single grey box with a narrower width -->
+        <div class="card p-4 shadow-sm text-center" style="background-color: rgb(36, 36, 36); border-radius: 10px; max-width: 600px; margin: 0 auto;">
+            
+            <!-- Display form errors if there are any -->
+            {% if form.errors %}
+                <div style="color: red;">
+                    <p>Please fix the following errors:</p>
+                    {{ form.errors }}
+                </div>
+            {% endif %}
+
+            <!-- Full Name -->
+            <div class="mb-3">
+                <h5 class="text-center">Full Name</h5>
+                {{ form.full_name }}
+            </div>
+
+            <!-- Delivery Address -->
+            <div class="mb-3">
+                <h5 class="text-center">Delivery Address</h5>
+                <textarea name="delivery_address" rows="3" class="form-control" 
+          style="width: 38%; max-width: 100%; height: 60px; resize: none; margin: 0 auto;" 
+          placeholder="No address provided">{{ form.delivery_address.value }}</textarea>
+
+
+            </div>
+
+            <!-- Card Number -->
+            <div class="mb-3">
+                <h5 class="text-center">Card Number</h5>
+                {{ form.card_number }}
+            </div>
+
+            <!-- Card Expiry Date -->
+            <div class="mb-3">
+                <h5 class="text-center">Card Expiry Date (MM/YY)</h5>
+                {{ form.card_expiry_date }}
+            </div>
+
+            <!-- Card CVV -->
+            <div class="mb-3">
+                <h5 class="text-center">Card CVV</h5>
+                {{ form.card_cvv }}
+            </div>
+
+        </div>
+
+        <!-- Submit Payment button -->
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-warning">Complete Order</button>
+        </div>
+    </form>
+</div>
+
+<p class="text-center"><a href="{% url 'dashboard' %}" class="btn btn-secondary">Back to Dashboard</a></p>
+
+{% endblock %}

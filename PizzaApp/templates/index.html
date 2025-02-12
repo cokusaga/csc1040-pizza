@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container text-center my-5">
+    <img src="{% static 'images/crown-removebg-preview.png' %}" alt="Crown Pizza Logo" class="img-fluid" style="max-width: 200px;">
+    <h1>Welcome to Crown Pizza</h1>
+    <h3 class="lead">Your favorite pizzas, made fresh and delivered to your door.</h3>
+    <div class="mt-4">
+        <h3>Get started with an account:</h3>
+        <div class="d-flex justify-content-center mt-3">
+            <!-- Register Button -->
+            <a href="{% url 'register' %}" class="btn btn-primary btn-lg me-3">Register</a>
+            <!-- Login Button -->
+            <a href="{% url 'login' %}" class="btn btn-secondary btn-lg">Login</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

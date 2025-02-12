@@ -1,4 +1,3 @@
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
@@ -52,24 +51,15 @@ def create_pizza(request):
     if request.method == 'POST':
         form = PizzaOrderForm(request.POST)
         if form.is_valid():
-            pizza_order = form.save(commit=False)  
-            pizza_order.user = request.user  
-            pizza_order.save()  
+            pizza_order = form.save(commit=False)
+            pizza_order.user = request.user
+            pizza_order.save()
 
             form.save_m2m()  # Save many-to-many toppings
 
-            # Debugging output to check what's happening
-            print(f"Order created with ID: {pizza_order.id}")  # This checks that the order is being created correctly
-
-            # Attempting to redirect to the payment page
-            try:
-                redirect_url = redirect('payment', order_id=pizza_order.id)
-                print(f"Redirecting to: {redirect_url}")  # This checks the redirect URL
-                return redirect_url
-            except Exception as e:
-                print(f"Error during redirection: {e}")  # If there's an error during redirection
+            return redirect('payment', order_id=pizza_order.id)  # Redirect to payment page after order creation
         else:
-            print(f"Form errors: {form.errors}")  # Print form errors if form is invalid
+            messages.error(request, "Error creating order. Please check your form.")
 
     else:
         form = PizzaOrderForm()
@@ -84,29 +74,18 @@ def payment_view(request, order_id):
     if request.method == 'POST':
         form = DeliveryDetailsForm(request.POST, instance=order)
         if form.is_valid():
-            # Save form details to the existing order
             order.full_name = form.cleaned_data['full_name']
             order.delivery_address = form.cleaned_data['delivery_address']
-
-            # Only store the last 4 digits of the card number for security
             card_number = form.cleaned_data['card_number']
-            order.card_number = f"**** **** **** {card_number[-4:]}"  
-
+            order.card_number = f"**** **** **** {card_number[-4:]}"
             order.card_expiry_date = form.cleaned_data['card_expiry_date']
-            # Avoid storing CVV (PCI compliance)
-            # order.card_cvv = form.cleaned_data['card_cvv']
-
-            order.save()  # Save the updated order with delivery details
-
-            print(f"Order ID: {order.id}")  # Debugging
+            order.save()
 
             messages.success(request, "Payment details saved successfully!")
             return redirect('order_confirmation', order_id=order.id)
         else:
-            print("Form is invalid. Errors:", form.errors)  # Debugging
             messages.error(request, "Invalid form submission. Please check your details.")
     else:
-        # Pre-fill form with existing order details (if available)
         form = DeliveryDetailsForm(instance=order)
 
     return render(request, 'payment.html', {'form': form, 'order': order})
@@ -115,15 +94,13 @@ def payment_view(request, order_id):
 @login_required
 def order_confirmation(request, order_id):
     order = get_object_or_404(Order, id=order_id, user=request.user)
-    
-    # Get the pizza size, crust, sauce, cheese, and toppings
+
     pizza_size = order.pizza_size.name if order.pizza_size else "No size selected"
     pizza_crust = order.pizza_crust.name if order.pizza_crust else "No crust selected"
     pizza_sauce = order.pizza_sauce.name if order.pizza_sauce else "No sauce selected"
     pizza_cheese = order.pizza_cheese.name if order.pizza_cheese else "No cheese selected"
     toppings = order.toppings.all()
 
-    # Only show the last 4 digits of the card number for security
     last_four_digits = order.card_number[-4:] if order.card_number and len(order.card_number) >= 4 else "****"
 
     return render(request, 'order_confirmation.html', {

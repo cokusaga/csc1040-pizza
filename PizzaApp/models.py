@@ -57,20 +57,12 @@ class Order(models.Model):
 
     def total_price(self):
         """
-        Debugging: Check if pizza_size and toppings exist and calculate total price.
+        Calculate total price including pizza size and toppings.
         """
-        print(f"DEBUG: Pizza Size: {self.pizza_size.name if self.pizza_size else 'None'}")
-        print(f"DEBUG: Toppings: {[t.name for t in self.toppings.all()]}")
-        
         base_price = self.pizza_size.price if self.pizza_size else 0
         toppings_price = sum(t.price for t in self.toppings.all())
-        
-        print(f"DEBUG: Base price: {base_price}")
-        print(f"DEBUG: Toppings total: {toppings_price}")
         
         return base_price + toppings_price
 
     def __str__(self):
-        # Debugging: Ensure the relationship exists
-        print(f"DEBUG: Order {self.id} - Pizza Size: {self.pizza_size.name if self.pizza_size else 'None'}, Pizza Crust: {self.pizza_crust.name if self.pizza_crust else 'None'}")
         return f"Order {self.id} - {self.pizza_size.name if self.pizza_size else 'Unknown'}"

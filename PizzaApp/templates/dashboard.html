@@ -1,10 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
 {% block content %}
-<h1 class="text-center">Welcome To Dashboard</h1>
 <div class="container my-5">
+    <!-- Logout Button at the top -->
+    {% if user.is_authenticated %}
+        <div class="text-right mb-4">
+            <!-- Create a form to logout with POST request -->
+            <form action="{% url 'logout' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+        </div>
+    {% endif %}
+    
+    <h1 class="text-center">Welcome To Dashboard</h1>
     <h2 class="text-center">Your Orders</h2>
 
     {% if orders %}
@@ -17,7 +27,7 @@
                         <p><strong>Pizza Crust:</strong> {{ order.pizza_crust }}</p>
                         <p><strong>Pizza Sauce:</strong> {{ order.pizza_sauce }}</p>
                         <p><strong>Total Price:</strong> ${{ order.total_price }}</p>
-                        <a href="{% url 'order_confirmation' order.id %}" class="btn btn-warning mt-3 w-100">View Order Details</a>  <!-- Fixed button alignment -->
+                        <a href="{% url 'order_confirmation' order.id %}" class="btn btn-warning mt-3 w-100">View Order Details</a>
                     </div>
                 </div>
             {% endfor %}
@@ -29,6 +39,4 @@
         <p>You haven't placed any orders yet. Start ordering now!</p>
     {% endif %}
 </div>
-
-
 {% endblock %}

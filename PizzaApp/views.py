@@ -47,6 +47,7 @@ def dashboard(request):
 
 # Create pizza view - allows a user to create a new pizza order
 @login_required
+@login_required
 def create_pizza(request):
     if request.method == 'POST':
         form = PizzaOrderForm(request.POST)
@@ -60,7 +61,6 @@ def create_pizza(request):
             return redirect('payment', order_id=pizza_order.id)  # Redirect to payment page after order creation
         else:
             messages.error(request, "Error creating order. Please check your form.")
-
     else:
         form = PizzaOrderForm()
 

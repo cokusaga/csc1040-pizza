@@ -28,11 +28,8 @@
             <!-- Delivery Address -->
             <div class="mb-3">
                 <h5 class="text-center">Delivery Address</h5>
-                <textarea name="delivery_address" rows="3" class="form-control" 
-          style="width: 38%; max-width: 100%; height: 60px; resize: none; margin: 0 auto;" 
-          placeholder="No address provided">{{ form.delivery_address.value }}</textarea>
-
-
+                <!-- Use form rendering for consistent look -->
+                {{ form.delivery_address }}
             </div>
 
             <!-- Card Number -->

@@ -49,8 +49,8 @@ class Order(models.Model):
     toppings = models.ManyToManyField(PizzaTopping, blank=True)
 
     # Payment & Delivery Fields with Defaults
-    full_name = models.CharField(max_length=100, default="Anonymous")
-    delivery_address = models.TextField(default="No Address Provided")
+    full_name = models.CharField(max_length=100)
+    delivery_address = models.TextField()
     card_number = models.CharField(max_length=16, default="0000000000000000")  # Fake card for DB
     card_expiry_date = models.CharField(max_length=5, default="00/00")  # Placeholder
     card_cvv = models.CharField(max_length=3, default="000")  # Placeholder

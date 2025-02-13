@@ -5,53 +5,35 @@
 <h1 class="text-center">Create Your Custom Pizza</h1>
 
 <div class="container my-5">
-    <form method="POST" enctype="multipart/form-data" class="form-container">
+    <form method="POST">
         {% csrf_token %}
-
-        <!-- All fields inside a single grey box with a narrower width -->
         <div class="card p-4 shadow-sm text-center" style="background-color: rgb(36, 36, 36); border-radius: 10px; max-width: 600px; margin: 0 auto;">
-            <!-- Choose Your Size -->
             <div class="mb-3">
                 <h5 class="text-center">Choose Your Size</h5>
                 {{ form.pizza_size }}
             </div>
-
-            <!-- Choose Your Crust -->
             <div class="mb-3">
                 <h5 class="text-center">Choose Your Crust</h5>
                 {{ form.pizza_crust }}
             </div>
-
-            <!-- Choose Your Sauce -->
             <div class="mb-3">
                 <h5 class="text-center">Choose Your Sauce</h5>
                 {{ form.pizza_sauce }}
             </div>
-
             <div class="mb-3">
-                <h5 class="text-center">Choose Your Sauce</h5>
+                <h5 class="text-center">Choose Your Cheese</h5>
                 {{ form.pizza_cheese }}
             </div>
-            
-
-            <!-- Select Toppings -->
             <div class="mb-3">
                 <h5 class="text-center">Select Toppings</h5>
                 <div class="topping-options">
-                    {% for topping in form.toppings %}
-                        <div class="form-check">
-                            {{ topping.tag }}
-                            <label for="{{ topping.id_for_label }}" class="form-check-label text-white">
-                                {{ topping.choice_label }}
-                            </label>
-                        </div>
-                    {% endfor %}
+                    {{ form.toppings }}
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-warning mt-4 d-flex justify-content-center mx-auto">Order Pizza</button>
-
+        <div class="d-flex justify-content-center mt-4">
+            <button type="submit" class="btn btn-warning mt-4">Order Pizza</button>
+        </div>
     </form>
 </div>
-
 {% endblock %}

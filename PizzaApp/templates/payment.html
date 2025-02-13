@@ -25,12 +25,14 @@
                 {{ form.full_name }}
             </div>
 
-            <!-- Delivery Address -->
+            <!-- Delivery Address (Adjust width) -->
             <div class="mb-3">
                 <h5 class="text-center">Delivery Address</h5>
-                <!-- Use form rendering for consistent look -->
-                {{ form.delivery_address }}
+                <div class="form-control" style="max-width: 100%; background-color: rgb(36, 36, 36); color: white; border: none;">
+                    {{ form.delivery_address }}
+                </div>
             </div>
+            
 
             <!-- Card Number -->
             <div class="mb-3">

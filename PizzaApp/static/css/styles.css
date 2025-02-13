@@ -136,3 +136,11 @@ h1, h2, h3, h4, h5 {
         font-size: 16px;
     }
 }
+
+.form-control {
+    max-width: 50%; /* Control width */
+    height: 40px; /* Control height */
+    background-color: rgb(36, 36, 36);
+    color: white;
+    border: none;
+}

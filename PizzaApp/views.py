@@ -47,23 +47,28 @@ def dashboard(request):
 
 # Create pizza view - allows a user to create a new pizza order
 @login_required
-@login_required
 def create_pizza(request):
+    print("Reached create_pizza view")  # Debugging line to ensure the view is called
+
     if request.method == 'POST':
         form = PizzaOrderForm(request.POST)
         if form.is_valid():
+            print("Form is valid!")  # Debugging line to ensure form is valid
             pizza_order = form.save(commit=False)
             pizza_order.user = request.user
             pizza_order.save()
 
             form.save_m2m()  # Save many-to-many toppings
-
-            return redirect('payment', order_id=pizza_order.id)  # Redirect to payment page after order creation
+            print(f"Created order with ID: {pizza_order.id}")  # Debugging line to check the order ID
+            return redirect('payment', order_id=pizza_order.id)  # Redirect to payment page
         else:
+            print("Form is not valid!")  # Debugging line to indicate the form isn't valid
+            print(form.errors)  # Print out the form errors in the console
             messages.error(request, "Error creating order. Please check your form.")
     else:
         form = PizzaOrderForm()
 
+    print("Render create_pizza page")  # Debugging line to indicate render is happening
     return render(request, 'create_pizza.html', {'form': form})
 
 # Payment view - allows user to enter payment and delivery details
@@ -74,11 +79,9 @@ def payment_view(request, order_id):
     if request.method == 'POST':
         form = DeliveryDetailsForm(request.POST, instance=order)
         if form.is_valid():
+            # Handle the payment form and save delivery info
             order.full_name = form.cleaned_data['full_name']
             order.delivery_address = form.cleaned_data['delivery_address']
-            card_number = form.cleaned_data['card_number']
-            order.card_number = f"**** **** **** {card_number[-4:]}"
-            order.card_expiry_date = form.cleaned_data['card_expiry_date']
             order.save()
 
             messages.success(request, "Payment details saved successfully!")
@@ -93,6 +96,7 @@ def payment_view(request, order_id):
 # Order confirmation view - shows details of the placed order
 @login_required
 def order_confirmation(request, order_id):
+    print(f"Fetching order with ID: {order_id}")  # Debug: Check if the correct order ID is passed
     order = get_object_or_404(Order, id=order_id, user=request.user)
 
     pizza_size = order.pizza_size.name if order.pizza_size else "No size selected"

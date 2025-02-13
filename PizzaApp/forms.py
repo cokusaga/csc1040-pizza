@@ -4,7 +4,7 @@ from .models import Order, PizzaSize, PizzaCrust, PizzaSauce, PizzaCheese, Pizza
 class PizzaOrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['pizza_size', 'pizza_crust', 'pizza_sauce', 'pizza_cheese', 'toppings', 'full_name', 'delivery_address']
+        fields = ['pizza_size', 'pizza_crust', 'pizza_sauce', 'pizza_cheese', 'toppings']
         widgets = {
             'toppings': forms.CheckboxSelectMultiple(),  # For multiple toppings, use checkboxes
             'delivery_address': forms.Textarea(attrs={'placeholder': 'Enter delivery address'}),

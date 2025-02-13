@@ -9,67 +9,69 @@
     <div class="card p-4 shadow-sm text-center" style="width: 100%; max-width: 600px; background-color: rgb(36, 36, 36); border-radius: 10px; margin: 0 auto;">
         <!-- Content inside the grey box -->
 
-        <div class="mb-3">
-            <h5 class="text-center">Order ID</h5>
-            <div class="form-control" style="background-color: rgb(36, 36, 36); color: white; border: none;">
+        <div class="mb-3" style="text-align: center;">
+            <h5>Order ID</h5>
+            <div class="form-control" style="background-color: rgb(36, 36, 36); color: white; border: none; text-align: center;">
                 {{ order.id }}
             </div>
         </div>
 
-        <div class="mb-3">
-            <h5 class="text-center">Pizza Size</h5>
-            <div class="form-control" style="background-color: rgb(36, 36, 36); color: white; border: none;">
+        <div class="mb-3" style="text-align: center;">
+            <h5>Pizza Size</h5>
+            <div class="form-control" style="background-color: rgb(36, 36, 36); color: white; border: none; text-align: center;">
                 {{ pizza_size }}
             </div>
         </div>
 
-        <div class="mb-3">
-            <h5 class="text-center">Pizza Crust</h5>
-            <div class="form-control" style="background-color: rgb(36, 36, 36); color: white; border: none;">
+        <div class="mb-3" style="text-align: center;">
+            <h5>Pizza Crust</h5>
+            <div class="form-control" style="background-color: rgb(36, 36, 36); color: white; border: none; text-align: center;">
                 {{ pizza_crust }}
             </div>
         </div>
 
-        <div class="mb-3">
-            <h5 class="text-center">Pizza Sauce</h5>
-            <div class="form-control" style="background-color: rgb(36, 36, 36); color: white; border: none;">
+        <div class="mb-3" style="text-align: center;">
+            <h5>Pizza Sauce</h5>
+            <div class="form-control" style="background-color: rgb(36, 36, 36); color: white; border: none; text-align: center;">
                 {{ pizza_sauce }}
             </div>
         </div>
 
-        <div class="mb-3">
-            <h5 class="text-center">Pizza Cheese</h5>
-            <div class="form-control" style="background-color: rgb(36, 36, 36); color: white; border: none;">
+        <div class="mb-3" style="text-align: center;">
+            <h5>Pizza Cheese</h5>
+            <div class="form-control" style="background-color: rgb(36, 36, 36); color: white; border: none; text-align: center;">
                 {{ pizza_cheese }}
             </div>
         </div>
 
-        <div class="mb-3">
-            <h5 class="text-center">Toppings</h5>
-            <div class="form-control" style="background-color: rgb(36, 36, 36); color: white; border: none;">
+        <div class="mb-3" style="text-align: center;">
+            <h5>Toppings</h5>
+            <div class="form-control" style="background-color: rgb(36, 36, 36); color: white; border: none; text-align: center;">
                 {% for topping in toppings %}
                     <div>{{ topping.name }}</div>
                 {% endfor %}
             </div>
         </div>
 
-        <div class="mb-3">
-            <h5 class="text-center">Delivery Address</h5>
-            <div class="form-control" style="background-color: rgb(36, 36, 36); color: white; border: none;">
+        <div class="mb-3" style="text-align: center;">
+            <h5>Delivery Address</h5>
+            <div class="form-control" style="background-color: rgb(36, 36, 36); color: white; border: none; text-align: center;">
                 {{ order.delivery_address }}
             </div>
         </div>
 
-        <div class="mb-3">
-            <h5 class="text-center">Card Number (Last 4 Digits)</h5>
-            <div class="form-control" style="background-color: rgb(36, 36, 36); color: white; border: none;">
+        <div class="mb-3" style="text-align: center;">
+            <h5>Card Number (Last 4 Digits)</h5>
+            <div class="form-control" style="background-color: rgb(36, 36, 36); color: white; border: none; text-align: center;">
                 **** **** **** {{ last_four_digits }}
             </div>
         </div>
 
     </div>
 </div>
+
 <div class="text-center mt-4">
     <a href="{% url 'dashboard' %}" class="btn btn-secondary btn-lg">Dashboard!</a>
 </div>
+
 {% endblock %}

@@ -43,21 +43,19 @@ def logout_view(request):
     logout(request)
     return redirect('index')
 
-# Dashboard view - lists orders of the logged-in user
+# Dashboard view
 @login_required
 def dashboard(request):
     orders = Order.objects.filter(user=request.user)  # Get orders for logged-in user
     return render(request, 'dashboard.html', {'orders': orders})
 
-# Create pizza view - allows a user to create a new pizza order
+# Create pizza view
 @login_required
 def create_pizza(request):
-    print("Reached create_pizza view")  # Debugging line to ensure the view is called
-
     if request.method == 'POST':
         form = PizzaOrderForm(request.POST)
         if form.is_valid():
-            print("Form is valid!")  # Debugging line to ensure form is valid
+            print("Form is valid!")
             pizza_order = form.save(commit=False)
             pizza_order.user = request.user
             pizza_order.save()
@@ -75,7 +73,7 @@ def create_pizza(request):
     print("Render create_pizza page")  # Debugging line to indicate render is happening
     return render(request, 'create_pizza.html', {'form': form})
 
-# Payment view - allows user to enter payment and delivery details
+# Payment view
 @login_required
 def payment_view(request, order_id):
     order = get_object_or_404(Order, id=order_id, user=request.user)
@@ -97,7 +95,8 @@ def payment_view(request, order_id):
         form = DeliveryDetailsForm(instance=order)
 
     return render(request, 'payment.html', {'form': form, 'order': order})
-# Order confirmation view - shows details of the placed order
+
+# Order confirmation view
 @login_required
 def order_confirmation(request, order_id):
     print(f"Fetching order with ID: {order_id}")  # Debug: Check if the correct order ID is passed

@@ -124,7 +124,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'PizzaApp', 'static'),
 ]
 
-# This line is required for development mode. Django will serve static files automatically.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'

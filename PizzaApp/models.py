@@ -42,10 +42,10 @@ class PizzaTopping(models.Model):
 # Order Model
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
-    pizza_size = models.ForeignKey(PizzaSize, on_delete=models.CASCADE, default=1)  # Default size ID
-    pizza_crust = models.ForeignKey(PizzaCrust, on_delete=models.CASCADE, default=1)  # Default crust ID
-    pizza_sauce = models.ForeignKey(PizzaSauce, on_delete=models.CASCADE, default=1)  # Default sauce ID
-    pizza_cheese = models.ForeignKey(PizzaCheese, on_delete=models.CASCADE, default=1)  # Default cheese ID
+    pizza_size = models.ForeignKey(PizzaSize, on_delete=models.CASCADE, default=1)
+    pizza_crust = models.ForeignKey(PizzaCrust, on_delete=models.CASCADE, default=1)
+    pizza_sauce = models.ForeignKey(PizzaSauce, on_delete=models.CASCADE, default=1) 
+    pizza_cheese = models.ForeignKey(PizzaCheese, on_delete=models.CASCADE, default=1)
     toppings = models.ManyToManyField(PizzaTopping, blank=True)
 
     # Payment & Delivery Fields with Defaults

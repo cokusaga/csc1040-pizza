@@ -8,48 +8,88 @@
     <form method="POST" enctype="multipart/form-data" class="form-container">
         {% csrf_token %}
 
-        <!-- All fields inside a single grey box with a narrower width -->
-        <div class="card p-4 shadow-sm text-center" style="background-color: rgb(36, 36, 36); border-radius: 10px; max-width: 600px; margin: 0 auto;">
-            
-            <!-- Display form errors if there are any -->
-            {% if form.errors %}
-                <div style="color: red;">
-                    <p>Please fix the following errors:</p>
-                    {{ form.errors }}
-                </div>
-            {% endif %}
+        <!-- Display form-wide errors at the top of the grey box -->
+        {% if form.non_field_errors %}
+            <div class="custom-error">
+                <p>Please fix the following errors:</p>
+                <ul>
+                    {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
 
+        <div class="card p-4 shadow-sm text-center" style="background-color: rgb(36, 36, 36); border-radius: 10px; max-width: 600px; margin: 0 auto;">
             <!-- Full Name -->
             <div class="mb-3">
                 <h5 class="text-center">Full Name</h5>
                 {{ form.full_name }}
+                <!-- Display error for full_name -->
+                {% if form.full_name.errors %}
+                    <div class="custom-error">
+                        {% for error in form.full_name.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
 
             <!-- Delivery Address -->
             <div class="mb-3">
                 <h5 class="text-center">Delivery Address</h5>
-                <!-- Use form rendering for consistent look -->
                 {{ form.delivery_address }}
+                <!-- Display error for delivery_address -->
+                {% if form.delivery_address.errors %}
+                    <div class="custom-error">
+                        {% for error in form.delivery_address.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
 
             <!-- Card Number -->
             <div class="mb-3">
                 <h5 class="text-center">Card Number</h5>
                 {{ form.card_number }}
+                <!-- Display error for card_number -->
+                {% if form.card_number.errors %}
+                    <div class="custom-error">
+                        {% for error in form.card_number.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
 
             <!-- Card Expiry Date -->
             <div class="mb-3">
                 <h5 class="text-center">Card Expiry Date (MM/YY)</h5>
                 {{ form.card_expiry_date }}
+                <!-- Display error for card_expiry_date -->
+                {% if form.card_expiry_date.errors %}
+                    <div class="custom-error">
+                        {% for error in form.card_expiry_date.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
 
             <!-- Card CVV -->
             <div class="mb-3">
                 <h5 class="text-center">Card CVV</h5>
                 {{ form.card_cvv }}
+                <!-- Display error for card_cvv -->
+                {% if form.card_cvv.errors %}
+                    <div class="custom-error">
+                        {% for error in form.card_cvv.errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
-
         </div>
 
         <!-- Submit Payment button -->

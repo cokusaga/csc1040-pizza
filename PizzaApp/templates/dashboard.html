@@ -3,16 +3,6 @@
 
 {% block content %}
 <div class="container my-5">
-    <!-- Logout Button at the top -->
-    {% if user.is_authenticated %}
-        <div class="text-right mb-4">
-            <!-- Create a form to logout with POST request -->
-            <form action="{% url 'logout' %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Logout</button>
-            </form>
-        </div>
-    {% endif %}
     
     <h1 class="text-center">Welcome To Dashboard</h1>
     <h2 class="text-center">Your Orders</h2>

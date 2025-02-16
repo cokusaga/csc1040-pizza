@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from .models import Order
 from .forms import PizzaOrderForm, DeliveryDetailsForm
@@ -38,6 +38,10 @@ def login_view(request):
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('index')
 
 # Dashboard view - lists orders of the logged-in user
 @login_required
@@ -87,12 +91,12 @@ def payment_view(request, order_id):
             messages.success(request, "Payment details saved successfully!")
             return redirect('order_confirmation', order_id=order.id)
         else:
+            # The form is invalid, so we rely on the form's error messages
             messages.error(request, "Invalid form submission. Please check your details.")
     else:
         form = DeliveryDetailsForm(instance=order)
 
     return render(request, 'payment.html', {'form': form, 'order': order})
-
 # Order confirmation view - shows details of the placed order
 @login_required
 def order_confirmation(request, order_id):

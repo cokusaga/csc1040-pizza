@@ -9,10 +9,16 @@
 }
 
 /* Global Styles */
-body {
-    font-family: 'Lora', serif;
+html, body {
+    height: 100%; /* Full height for the page */
     margin: 0;
-    padding: 0;
+}
+
+/* Flexbox on body to make sure the footer stays at the bottom */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body takes full height */
     background-color: var(--background-color);
     background-image: url('/static/images/background.webp');
     background-size: cover;
@@ -20,6 +26,12 @@ body {
     background-attachment: fixed;
     background-repeat: no-repeat;
     color: var(--text-color);
+    font-family: 'Lora', serif;
+}
+
+/* Main content area (so it grows to fill the space) */
+.background-overlay {
+    flex-grow: 1; /* Makes sure content takes the remaining space */
 }
 
 /* Headings Styling */
@@ -32,7 +44,7 @@ h1, h2, h3, h4, h5 {
 /* Navbar Styles */
 .navbar {
     background-color: var(--navbar-color); /* Solid background color matching footer */
-    padding: 10px 15px; /* Original thinner navbar */
+    padding: 10px 15px;
     width: 100%;
     z-index: 1000;
     display: flex;
@@ -51,7 +63,7 @@ h1, h2, h3, h4, h5 {
 .navbar-links a {
     color: white;
     text-decoration: none;
-    padding: 8px 12px; /* Original padding */
+    padding: 8px 12px;
     font-size: 16px;
     transition: background-color 0.3s ease;
 }
@@ -67,7 +79,6 @@ h1, h2, h3, h4, h5 {
     width: auto;
     margin-right: 15px; /* Space between logo and links */
 }
-
 
 /* Ensure content doesn't overlap with navbar */
 .background-overlay {
@@ -116,15 +127,14 @@ h1, h2, h3, h4, h5 {
     color: white;
 }
 
-/* Footer */
+/* Footer Styles */
 .footer {
     background-color: var(--footer-color);
     color: white;
     padding: 10px;
     text-align: center;
     width: 100%;
-    position: relative;
-    margin-top: auto;
+    margin-top: auto; /* Push the footer to the bottom */
 }
 
 /* Responsive Design */
@@ -148,4 +158,27 @@ h1, h2, h3, h4, h5 {
     color: white;
     border: none;
     text-align: center;
+}
+
+/* Logout Button - Styled Like Other Buttons */
+.logout-btn {
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #D32F2F; /* Red color */
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #B71C1C; /* Darker red on hover */
+    color: white;
+}
+
+/* Custom error message color */
+.custom-error {
+    color: #FF5733; /* Choose your preferred color */
 }
